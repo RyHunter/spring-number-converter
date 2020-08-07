@@ -6,6 +6,11 @@ import com.number.converter.dto.NumConvertDto;
 
 import java.util.HashMap;
 
+/*
+Returns a dto that represents in english words the number that was passed to it
+and the status, "ok" on success and "failed" on failure
+*/
+
 
 @Service
 public class NumConvertService {
