@@ -1,90 +1,28 @@
-Run the service with curl (in a separate terminal window), by running the following
-command:
+Running the app
 
-$ curl localhost:8080/
+1. This is a Spring Boot project & can be run with gradle or maven
+    * From command line you can run the app with './gradlew bootRun' or 'mvn spring-boot:run'
+    * In IntelliJ, open the project & right click on the build.gradle file & select Import Gradle Project from the list.
+        * Make sure to have add SDK in the project SDK dropdown
+    * Gradle can be installed on your machine with 'scoop install gradle'
+2. Alternatively, the project can be run from Application.java -> main
+    * This probably depends on your IDE though.
+3. Another way to handle this would have been for me to run the server and allow you to access that endpoint but opening and securing a port on my own network
+    seemed much more involved. Hope the app actually runs on your environment!
 
+Accessing endpoint
+1. I named the endpoint localhost://port/convertNumberToEnglish/{inputNumber} as this better describes the endpoint's purpose.
+2. Use a Postman or Curl get request to access it.
 
-If you use Gradle, add the following dependency to your `build.gradle` file:
+Misc
 
-include::complete/build.gradle[tag=tests]
-
-
-If you use Maven, add the following to your `pom.xml` file:
-
-include::complete/pom.xml[tag=tests]
-
-If you use Gradle, run the following command in a terminal
-window (in the `complete` directory):
-
-./gradlew bootRun
-
-
-If you use Maven, run the following command in a terminal window (in the `complete`
-directory):
-
-./mvnw spring-boot:run
-
+1. Based on the example given, I'm returning an object that contains two strings: status & converted number
+    * I could have returned the http response status but it seems cleaner to fail gracefully and use the status string to inform the user of (some) errors
+    instead of responding with a generic "500 something went wrong" message.
+2. Decimals and numbers over 999 septillion aren't allowed.
+3. Negative numbers are fine.
+4. I didn't do anything with http://localhost:8080/actuator/ endpoints because they seem like overkill for the purposes of this app
 
 
-
-If you are building a web site for your business, you probably need to add some management
-services. Spring Boot provides several such services (such as health, audits, beans, and
-more) with its
-http://docs.spring.io/spring-boot/docs/{spring_boot_version}/reference/htmlsingle/#production-ready[actuator module].
-
-If you use Gradle, add the following dependency to your `build.gradle` file:
-
-[source,groovy,indent=0]
-----
-include::complete/build.gradle[tag=actuator]
-----
-
-If you use Maven, add the following dependency to your `pom.xml` file:
-
-[source,xml,indent=0]
-----
-include::complete/pom.xml[tag=actuator]
-----
-
-Then restart the application. 
-
-You should see that a new set of RESTful end points have been added to the application.
-These are management services provided by Spring Boot. The following listing shows typical
-output:
-
-
-The actuator exposes the following:
-
-* errors
-* http://localhost:8080/actuator/health[actuator/health]
-* http://localhost:8080/actuator/info[actuator/info]
-* http://localhost:8080/actuator[actuator]
-
-NOTE: There is also an `/actuator/shutdown` endpoint, but, by default, it is visible only
-through JMX. To http://docs.spring.io/spring-boot/docs/{spring_boot_version}/reference/htmlsingle/#production-ready-endpoints-enabling-endpoints[enable it as an HTTP endpoint], add
-`management.endpoints.web.exposure.include=health,info,shutdown` to your `application.properties` file.
-However, you probably should not enable the shutdown endpoint for a publicly available
-application.
-
-You can check the health of the application by running the following command:
-
-====
-[source,bash]
-----
-$ curl localhost:8080/actuator/health
-{"status":"UP"}
-----
-====
-
-You can try also to invoke shutdown through curl, to see what happens when you have not
-added the necessary line (shown in the preceding note) to `application.properties`:
-
-====
-[source,bash]
-----
-$ curl -X POST localhost:8080/actuator/shutdown
-{"timestamp":1401820343710,"error":"Method Not Allowed","status":405,"message":"Request method 'POST' not supported"}
-----
-====
 
 
