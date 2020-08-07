@@ -1,0 +1,24 @@
+Running the app
+
+1. This is a Spring Boot project & can be run with gradle or maven
+    * From command line you can run the app with './gradlew bootRun' or 'mvn spring-boot:run'
+    * In IntelliJ, open the project & right click on the build.gradle file & select Import Gradle Project from the list.
+        * Make sure to have add SDK in the project SDK dropdown
+    * Gradle can be installed on your machine with 'scoop install gradle'
+2. Alternatively, the project can be run from Application.java -> main
+    * This probably depends on your IDE though.
+3. Another way to handle this would have been for me to run the server and allow you to access that endpoint but opening and securing a port on my own network
+    seemed much more involved. Hope the app actually runs on your environment!
+
+Accessing endpoint
+1. I named the endpoint localhost://port/convertNumberToEnglish/{inputNumber} as this better describes the endpoint's purpose.
+2. Use a Postman or Curl get request to access it.
+
+Misc
+
+1. Based on the example given, I'm returning an object that contains two strings: status & converted number
+    * I could have returned the http response status but it seems cleaner to fail gracefully and use the status string to inform the user of (some) errors
+    instead of responding with a generic "500 something went wrong" message.
+2. Decimals and numbers over 999 septillion aren't allowed.
+3. Negative numbers are fine.
+
