@@ -7,6 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.number.converter.service.NumConvertService;
 import com.number.converter.dto.NumConvertDto;
+/*
+Returns JSON object representing in english words the number that was passed to it
+and the status, "ok" on success and "failed" on failure
+
+@param   number   user generated number
+@return   string   number converted to english words
+@return    string    status
+*/
 
 //@RestController automagically converts response to JSON
 @RestController
